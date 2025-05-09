@@ -9,7 +9,7 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.zip
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.zip
   sha256: 1883e12eeb5819064dc52bf3a3ade05c791f4b66e4aeec948bda28df6ce2bce4
 
 build:
@@ -20,12 +20,13 @@ build:
 requirements:
   host:
     - pip
-    - python
+    - python ${{ python_min }}.*
+    - setuptools
   run:
     - azure-common >=1.1,<2
     - msrest >=0.5.0
     - msrestazure >=0.4.32,<2.0.0
-    - python
+    - python >=${{ python_min }}
 
 tests:
   - python:
@@ -40,8 +41,8 @@ tests:
         - azure.mgmt.keyvault.v2018_02_14.models
         - azure.mgmt.keyvault.v2018_02_14.operations
       pip_check: false
-
       python_version: ${{ python_min }}.*
+
 about:
   license: MIT
   license_file: LICENSE
